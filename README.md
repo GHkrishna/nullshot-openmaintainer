@@ -80,4 +80,55 @@ Suggested Bounty → Thirdweb Contract → On-chain Reward
 | Integration    | GitHub REST API + Ethers.js         |
 
 
+# Setup Instructions
 
+## Pre-req
+```bash
+git clone https://github.com/GHkrishna/nullshot-openmaintainer
+cd openmaintainer
+cp .env.example .env
+npm install
+```
+
+## Update .env with:
+```bash
+GITHUB_TOKEN=<your_token>
+OPENAI_API_KEY=<your_key>
+THIRDWEB_PRIVATE_KEY=<your_wallet_key>
+RPC_URL=<rpc_url>
+```
+
+## Run AI maintainer:
+TBH, not sure about this. Why would we need this file if the reviews are automated. Maybe we can have a trigger here
+```bash
+node scripts/review_pr.js
+```
+
+## Run bounty release
+```bash
+node scripts/distribute_bounty.js
+```
+
+# Hackathon Relevance
+- NullShot Framework: used for building the AI agent
+- Edenlayer MCP: ensures agent interoperability
+- Thirdweb: handles smart contract deployment + token management
+
+This project exemplifies the Agentic Economy — autonomous AI agents creating and distributing real economic value through verifiable, decentralized actions.
+
+# Future Scope
+- Decentralized Agent Marketplace
+  - Allow developers to create and publish their own AI agents for open source workflows.
+  - Repositories can “plug and play” these agents (e.g., reviewer bot, issue triager, contributor engagement bot).
+
+- Contributor Reputation & Insights
+  - Introduce a scoring system to quantify impact beyond code — reviews, discussions, issue reports, etc.
+  - These insights can help projects identify potential maintainers or reward genuine contributors.
+
+- AI-Governed Bounty Management
+  - Instead of manual or DAO voting, use AI-assisted reputation and contribution data to suggest and prioritize bounties automatically.
+  - Later, a DAO layer can be added for decentralized validation and reward distribution.
+
+- Multi-Agent Collaboration for Large Repositories
+  - Enable multiple specialized agents (for docs, testing, CI/CD, etc.) to work together on large, multi-repo projects.
+  - Agents can share context securely and coordinate to maintain consistency across repositories.
