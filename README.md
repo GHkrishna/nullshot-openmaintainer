@@ -19,7 +19,7 @@ By merging **AI autonomy** with **Web3 verifiability**, it demonstrates how the 
 
 Traditional open source relies on human maintainers — a scarce and overburdened resource.  
 **OpenMaintainer** introduces an **AI Maintainer Agent** that:
-- Reviews PRs automatically  
+- Reviews PRs automatically  (This might be pushed for further scope, or an agent like coderabbit can be used instead of having everything build from scratch)
 - Suggests bounty rewards for contributions using AI evaluation  
 - Rewards contributors transparently using **Thirdweb smart contracts**  
 
@@ -29,7 +29,7 @@ Traditional open source relies on human maintainers — a scarce and overburdene
 
 | Layer | Role | Tech used |
 |-------|------|------|
-| **AI Agent** | Reviews PRs, analyzes contribution quality, and suggests bounty | NullShot TypeScript Agent Framework |
+| **AI Agent** | Reviews PRs(future scope), analyzes contribution quality, and suggests bounty | NullShot TypeScript Agent Framework |
 | **Web3 Layer** | Stores and distributes bounties | Thirdweb SDK + Solidity (Polygon testnet) |
 | **Bridge** | Links GitHub events ↔ AI logic ↔ blockchain calls | Node.js scripts |
 | **MCP** | Enables discoverable and composable agent actions | Edenlayer / NullShot MCP API |
@@ -76,7 +76,7 @@ Suggested Bounty → Thirdweb Contract → On-chain Reward
 | AI Model       | LLM (OpenAI / Local Ollama)         |
 | Smart Contract | Solidity + Thirdweb SDK             |
 | Backend        | Node.js                             |
-| Blockchain     | Polygon / Sepolia testnet           |
+| Blockchain     | Polygon / Sepolia testnetc / Scroll         |
 | Integration    | GitHub REST API + Ethers.js         |
 
 
@@ -99,7 +99,7 @@ RPC_URL=<rpc_url>
 ```
 
 ## Run AI maintainer:
-TBH, not sure about this. Why would we need this file if the reviews are automated. Maybe we can have a trigger here
+TBH, not sure about this. Why would we need this file if the reviews are automated? Maybe we can have a trigger here. Dunno yet
 ```bash
 node scripts/review_pr.js
 ```
