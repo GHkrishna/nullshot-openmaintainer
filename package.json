@@ -1,0 +1,7 @@
+{
+  "name": "oss-virtual-maintainer",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["dashboard", "agent"],
+  "license": "MIT"
+}

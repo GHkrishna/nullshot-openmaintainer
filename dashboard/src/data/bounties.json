@@ -1,0 +1,24 @@
+[
+  {
+    "id": "bounty-001",
+    "issue": {
+      "id": 42,
+      "title": "Fix login redirect bug",
+      "url": "https://github.com/nullshot/oss-maintainer/issues/42"
+    },
+    "pullRequest": {
+      "id": 88,
+      "url": "https://github.com/nullshot/oss-maintainer/pull/88",
+      "author": "krishnaw",
+      "merged": true
+    },
+    "status": "reward_distributed",
+    "reward": 0.08,
+    "txHash": "0xabc1234def...",
+    "evaluations": {
+      "complexity": 0.7,
+      "documentation": 0.8,
+      "codeQuality": 0.9
+    }
+  }
+]
