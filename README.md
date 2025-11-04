@@ -9,7 +9,7 @@
 ## Overview
 
 OpenMaintainer is an **AI-driven virtual maintainer** for open-source repositories.  
-It reviews pull requests, suggests improvements, and automatically manages contributor rewards using transparent on-chain bounties.
+It reviews pull requests, might suggest improvements in the future, and automatically manages contributor rewards using transparent on-chain bounties.
 
 By merging **AI autonomy** with **Web3 verifiability**, it demonstrates how the next generation of *Agentic Systems* can support open-source ecosystems.
 
