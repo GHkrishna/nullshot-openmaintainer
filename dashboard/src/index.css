@@ -2,63 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global body styles */
+/* Global styling tweaks */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #f9fafb;
-  margin: 0;
-  padding: 0;
+  @apply bg-gray-50 text-gray-900 font-sans;
 }
 
-/* Links */
-a {
-  text-decoration: none;
-  transition: color 0.2s ease, text-decoration 0.2s ease;
+.card {
+  @apply rounded-2xl bg-white shadow p-4 transition hover:shadow-lg;
 }
 
-a:hover {
-  color: #2563eb; /* Tailwind blue-600 */
-  text-decoration: underline;
+.btn {
+  @apply px-4 py-2 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-700 transition;
 }
 
-/* Card hover effect */
-div.shadow-md {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.status-open {
+  @apply bg-yellow-100 text-yellow-800 px-2 py-1 rounded-md text-sm;
 }
 
-div.shadow-md:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+.status-in_progress {
+  @apply bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-sm;
 }
 
-/* Status badges */
-span.rounded-full {
-  text-transform: capitalize;
-  letter-spacing: 0.5px;
-}
-
-/* Optional: grid gap for BountyList */
-.grid {
-  gap: 1rem;
-}
-
-/* Smooth font rendering */
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Scrollbar (optional) */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(107, 114, 128, 0.5);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: rgba(229, 231, 235, 0.3);
+.status-reward_distributed {
+  @apply bg-green-100 text-green-800 px-2 py-1 rounded-md text-sm;
 }

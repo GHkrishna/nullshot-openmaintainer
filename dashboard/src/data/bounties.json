@@ -3,7 +3,7 @@
     "id": "bounty-001",
     "issue": {
       "id": 42,
-      "title": "Fix login redirect bug",
+      "title": "Fix login redirect bug (urgent)",
       "url": "https://github.com/nullshot/oss-maintainer/issues/42"
     },
     "pullRequest": {
@@ -12,13 +12,23 @@
       "author": "krishnaw",
       "merged": true
     },
-    "status": "reward_distributed",
-    "reward": 0.08,
-    "txHash": "0xabc1234def...",
-    "evaluations": {
-      "complexity": 0.7,
-      "documentation": 0.8,
-      "codeQuality": 0.9
-    }
+    "status": "open",
+    "reward": 0
+  },
+  {
+    "id": "bounty-002",
+    "issue": {
+      "id": 56,
+      "title": "Improve README and add contributing guidelines",
+      "url": "https://github.com/nullshot/oss-maintainer/issues/56"
+    },
+    "pullRequest": {
+      "id": 92,
+      "url": "https://github.com/nullshot/oss-maintainer/pull/92",
+      "author": "alice",
+      "merged": false
+    },
+    "status": "open",
+    "reward": 0
   }
 ]

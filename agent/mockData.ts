@@ -1,0 +1,26 @@
+export const mockPRs = [
+  {
+    id: 1,
+    title: "Fix API error handling",
+    issueId: 101,
+    issuePriority: "high",
+    createdAt: "2025-10-10T00:00:00Z",
+    mergedAt: "2025-11-03T00:00:00Z",
+    contributor: "0xC0ntr1but0rAddR3ss1",
+    description: "Improved error handling for the main API\n\nWallet: 0xC0ntr1but0rAddR3ss1",
+    tags: ["ready-for-review"],
+    rewardRange: [50, 200],
+  },
+  {
+    id: 2,
+    title: "Update docs for authentication flow",
+    issueId: 102,
+    issuePriority: "medium",
+    createdAt: "2025-09-25T00:00:00Z",
+    mergedAt: "2025-10-30T00:00:00Z",
+    contributor: "0xBEEfC0de0002",
+    description: "Added comprehensive documentation\n\nWallet: 0xBEEfC0de0002",
+    tags: ["ready-for-review"],
+    rewardRange: [20, 80],
+  },
+];
