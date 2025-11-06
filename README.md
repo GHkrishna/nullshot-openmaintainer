@@ -36,8 +36,6 @@ Traditional open source relies on human maintainers — a scarce and overburdene
 
 ---
 
-## Example Flow
-
 1. **Developer submits PR**
 2. **AI Maintainer (via NullShot Agent)** reviews PR and generates:
    - Summary  
@@ -116,7 +114,7 @@ node scripts/distribute_bounty.js
 
 This project exemplifies the Agentic Economy — autonomous AI agents creating and distributing real economic value through verifiable, decentralized actions.
 
-# Future Scope
+# Removing some content
 - Decentralized Agent Marketplace
   - Allow developers to create and publish their own AI agents for open source workflows.
   - Repositories can “plug and play” these agents (e.g., reviewer bot, issue triager, contributor engagement bot).
@@ -132,3 +130,7 @@ This project exemplifies the Agentic Economy — autonomous AI agents creating a
 - Multi-Agent Collaboration for Large Repositories
   - Enable multiple specialized agents (for docs, testing, CI/CD, etc.) to work together on large, multi-repo projects.
   - Agents can share context securely and coordinate to maintain consistency across repositories.
+
+
+## Some random content
+- Adding some content to check git diff
