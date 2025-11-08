@@ -6,11 +6,12 @@ import { extractPRs } from './utils/git-extractor';
 
 @Injectable()
 export class AppService {
+  // TODO: I'm thinking if I should have a DB for now, something like neon db should be fine wid prisma, lets see
 
   private readonly baseUrl = 'https://api.github.com';
   private readonly token = process.env.GITHUB_FINEGRAINED_TOKEN;
 
-  constructor(private readonly http: HttpService) {}
+  constructor(private readonly http: HttpService) { }
 
   getHello(): string {
     return 'Hello World!';
@@ -23,8 +24,8 @@ export class AppService {
   async get<T = any>(endpoint: string, headers: Record<string, string> = {}): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
 
-    console.log("This is url", url)
-    console.log("This is this.token", this.token)
+    console.log("[DEBUG][GET] URL:", url);
+    console.log("[DEBUG][GET] Token:", this.token);
 
     const response = await firstValueFrom(
       this.http.get(url, {
@@ -37,16 +38,21 @@ export class AppService {
       }),
     );
 
-    return extractPRs(response?.data) as any;
+    console.log("[DEBUG][GET] Response:", response?.data);
+    return response?.data;
   }
 
-  // Generic POST
+  // Generic POST with debug logs
   async post<T = any>(
     endpoint: string,
     body: any,
     headers: Record<string, string> = {},
   ): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
+
+    console.log("[DEBUG][POST] URL:", url);
+    console.log("[DEBUG][POST] Body:", body);
+    console.log("[DEBUG][POST] Token:", this.token);
 
     const response = await firstValueFrom(
       this.http.post(url, body, {
@@ -59,18 +65,78 @@ export class AppService {
       }),
     );
 
+    console.log("[DEBUG][POST] Response:", response?.data);
     return response.data;
   }
 
   // Fetch PR list for a repo
   async getPullRequests(owner: string, repo: string) {
-    return this.get(`/repos/${owner}/${repo}/pulls`);
+    console.log("[DEBUG] Fetching PRs for:", owner, repo);
+    const response = await this.get(`/repos/${owner}/${repo}/pulls`);
+    const prs = extractPRs(response);
+    console.log("[DEBUG] Extracted PRs:", prs);
+    return prs;
   }
 
   // Fetch PR diff/files
   async getPullRequestFiles(owner: string, repo: string, prNumber: number) {
+    console.log("[DEBUG] Fetching PR files for:", owner, repo, prNumber);
     return this.get(`/repos/${owner}/${repo}/pulls/${prNumber}/files`, {
       Accept: 'application/vnd.github.v3.diff',
     });
   }
+
+  // Add "Rewarded" label
+  async addRewardedLabelToPR(owner: string, repo: string, prNumber: number) {
+    console.log("[DEBUG] Adding 'Rewarded' label to PR:", prNumber);
+    return this.post(
+      `/repos/${owner}/${repo}/issues/${prNumber}/labels`,
+      { labels: ["Rewarded"] }
+    );
+  }
+
+  // Add custom labels
+  async addLabelToPR(owner: string, repo: string, prNumber: number, labels: string[]) {
+    console.log("[DEBUG] Adding labels to PR:", prNumber, "Labels:", labels);
+    return this.post(
+      `/repos/${owner}/${repo}/issues/${prNumber}/labels`,
+      { labels: [...labels] }
+    );
+  }
+
+  // Add comment to PR
+  async addCommentToPR(owner: string, repo: string, prNumber: number, body: string) {
+    console.log("[DEBUG] Adding comment to PR:", prNumber, "Body:", body);
+    return this.post(
+      `/repos/${owner}/${repo}/issues/${prNumber}/comments`,
+      { body }
+    );
+  }
+
+  // Reward PR flow
+  async rewardPR(owner: string, repo: string, prNumber: number) {
+    try {
+      // TODO: Do some sanity checks, like: 
+      // 1. Is the PR actually ready(label: "Ready for reward"), 
+      // 2. If its not already rewarded, etc 
+      
+      console.log("[DEBUG] Rewarding PR:", prNumber);
+      await this.addRewardedLabelToPR(owner, repo, prNumber);
+      console.log("[DEBUG] Rewarded label added");
+
+      const generatedComment: string = await this.generateFeedbackComment()
+
+      // 3. Take comment from agent
+      await this.addCommentToPR(owner, repo, prNumber, "Rewarded to the contributor successfully");
+      console.log("[DEBUG] Comment added to PR");
+      return {"success": true};
+    } catch(err) {
+      console.log("Error occurred")
+    }
+  }
+  async generateFeedbackComment(): Promise<string> {
+    // This methoud would handle all the magic to get the PR feedback from openshot
+    throw new Error('Method not implemented.');
+  }
+
 }
