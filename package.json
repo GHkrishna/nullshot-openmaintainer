@@ -2,6 +2,17 @@
   "name": "oss-virtual-maintainer",
   "version": "1.0.0",
   "private": true,
-  "workspaces": ["dashboard", "agent"],
-  "license": "MIT"
+  "workspaces": [
+    "dashboard",
+    "agent"
+  ],
+  "license": "",
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "@octokit/webhooks": "^14.1.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0"
+  }
 }
