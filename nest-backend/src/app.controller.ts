@@ -40,4 +40,10 @@ export class AppController {
   addRewardedLabelToPR(@Query('prNumber') prNumber: number): object {
     return this.appService.addRewardedLabelToPR(this.owner, this.repo, prNumber);
   }
+
+  @Post('/chat-example')
+  @ApiOperation({ summary: 'AI chat example' })
+  chatExample(): object {
+    return this.appService.chatExample();
+  }
 }

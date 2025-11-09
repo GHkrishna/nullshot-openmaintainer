@@ -1,25 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { getPR } from './agent/github-client';
+// import { getPR } from './utils/not-sure/github-client';
 import { firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { extractPRs } from './utils/git-extractor';
+import { AgentClient } from './agent/agent';
 
 @Injectable()
 export class AppService {
   // TODO: I'm thinking if I should have a DB for now, something like neon db should be fine wid prisma, lets see
 
+
   private readonly baseUrl = 'https://api.github.com';
   private readonly token = process.env.GITHUB_FINEGRAINED_TOKEN;
-
-  constructor(private readonly http: HttpService) { }
-
+  private client;
+  
+  constructor(private readonly http: HttpService) { 
+    this.client = new AgentClient("http://localhost:8787");
+  }
   getHello(): string {
     return 'Hello World!';
   }
 
-  getPR(): any {
-    return getPR('GHkrishna', 'nullshot-openmaintainer', 1);
-  }
+  // getPR(): any {
+  //   return getPR('GHkrishna', 'nullshot-openmaintainer', 1);
+  // }
 
   async get<T = any>(endpoint: string, headers: Record<string, string> = {}): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
@@ -129,14 +133,31 @@ export class AppService {
       // 3. Take comment from agent
       await this.addCommentToPR(owner, repo, prNumber, "Rewarded to the contributor successfully");
       console.log("[DEBUG] Comment added to PR");
+
+      // 4.0. Extract address from PR description
+      // 4. Distribute reward
+      await this.distributeReward("address")
       return {"success": true};
     } catch(err) {
       console.log("Error occurred")
     }
   }
+  async distributeReward(address: string) {
+    throw new Error('Method not implemented.');
+  }
   async generateFeedbackComment(): Promise<string> {
     // This methoud would handle all the magic to get the PR feedback from openshot
     throw new Error('Method not implemented.');
   }
+
+  
+  async chatExample() {
+    const stream = await this.client.sendMessage("What's the weather like?", "session-123");
+    
+    for await (const chunk of this.client.streamResponse(stream)) {
+      console.log(chunk); // Process streaming response
+    }
+  }
+  
 
 }
