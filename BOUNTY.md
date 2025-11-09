@@ -34,4 +34,4 @@ Each factor contributes to a composite bounty score, which determines the sugges
 | 🔴 Priority / Legacy Issue | 500–800               |
 
 ## Status
-open, in_progress, completed, reward_pending, reward_distributed
+open, in_progress, completed, Ready for reward, Rewarded
