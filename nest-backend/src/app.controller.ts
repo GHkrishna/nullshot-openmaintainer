@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('test')
 @Controller('open-maintainer')
@@ -45,5 +45,32 @@ export class AppController {
   @ApiOperation({ summary: 'AI chat example' })
   chatExample(): object {
     return this.appService.chatExample();
+  }
+
+  @Get('/on-chain/contract-details')
+  @ApiOperation({ summary: 'Contract details' })
+  onChainTest(): object {
+    return this.appService.onChainTest();
+  }
+
+  @Get('/on-chain/owner-account')
+  @ApiOperation({ summary: 'Owner account details' })
+  @ApiQuery({
+    name: 'address',
+    required: false
+  })
+  accountDetails(@Query('address') address?: string): object {
+    return this.appService.accountDetails(address);
+  }
+
+
+  @Post('/on-chain/rewardContributor')
+  @ApiOperation({ summary: 'Reward contributor' })
+  @ApiQuery({
+    name: 'address',
+    required: false
+  })
+  rewardContributor(@Query('address') address: string, @Query('amount') amount: string): object {
+    return this.appService.rewardContributor(address, amount);
   }
 }

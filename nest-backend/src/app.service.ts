@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { extractPRs } from './utils/git-extractor';
 import { AgentClient } from './agent/agent';
+import { OnChainTransaction } from './on-chain/on-chain';
 
 @Injectable()
 export class AppService {
@@ -12,10 +13,12 @@ export class AppService {
 
   private readonly baseUrl = 'https://api.github.com';
   private readonly token = process.env.GITHUB_FINEGRAINED_TOKEN;
-  private client;
+  private client: AgentClient;
+  private onChainInteraction: OnChainTransaction;
   
   constructor(private readonly http: HttpService) { 
     this.client = new AgentClient("http://localhost:8787");
+    this.onChainInteraction = new OnChainTransaction()
   }
   getHello(): string {
     return 'Hello World!';
@@ -143,6 +146,7 @@ export class AppService {
     }
   }
   async distributeReward(address: string) {
+    // All the ochain interaction , I'll need to sdd here
     throw new Error('Method not implemented.');
   }
   async generateFeedbackComment(): Promise<string> {
@@ -152,12 +156,35 @@ export class AppService {
 
   
   async chatExample() {
-    const stream = await this.client.sendMessage("What's the weather like?", "session-123");
+    const stream = await this.client.sendMessage("What's the weather like?");
     
     for await (const chunk of this.client.streamResponse(stream)) {
       console.log(chunk); // Process streaming response
     }
   }
-  
+    
+  async onChainTest() {
+      console.log("This is the details", this.onChainInteraction.contractDetails());
+      return this.onChainInteraction.contractDetails()
+  }
+    
+  async accountDetails(address?: string) {
+      console.log("This is the accountDetails details", this.onChainInteraction.accountDetails());
+      const balance = await this.onChainInteraction.getAddressBalance(address);
+      const msg = `${address? address: 'owner'}`
+      return { 
+        ownerDetails: this.onChainInteraction.accountDetails(),
+        balanceDetails: {
+          balance,
+          account: msg
+        }
+      }
+  }
+
+  async rewardContributor(address: string, amount: string) {
+    const result = await this.onChainInteraction.rewardContributor(address, amount)
+    console.log("This is the transfer details", result);
+    return result
+  }
 
 }
