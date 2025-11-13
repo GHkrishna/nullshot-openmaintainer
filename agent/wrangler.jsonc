@@ -27,8 +27,8 @@
     "enabled": true
   },
   "vars": {
-    "AI_PROVIDER": "openai",
-    "MODEL_ID": "gpt-4"
+    "AI_PROVIDER": "anthropic",
+    "MODEL_ID": "claude-3-haiku-20240307"
   },
   "services": [
     {
