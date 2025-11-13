@@ -18,6 +18,8 @@ export class AppService {
   private readonly agentBaseUrl = 'http://localhost:8787';
   private readonly token = process.env.GITHUB_FINEGRAINED_TOKEN;
   private readonly ownerAccount = process.env.OWNER_ACCOUNT_ADDRESS!;
+  private readonly tokenName = process.env.TOKEN_NAME_MONAD!;
+  private readonly tokenSymbol = process.env.TOKEN_SYMBOL_MONAD!;
   private client: AgentClient;
   private onChainInteraction: OnChainTransaction;
 
@@ -168,7 +170,7 @@ export class AppService {
       await this.addRewardedLabelToPR(owner, repo, prNumber);
       console.log("[DEBUG] Rewarded label added");
 
-      const generatedComment: string = await this.doAllAIAndBlockchainStuff(owner, repo, prNumber)
+      const result = await this.doAllAIAndBlockchainStuff(owner, repo, prNumber)
 
       // 3. Take comment from agent
       // await this.addCommentToPR(owner, repo, prNumber, "Rewarded to the contributor successfully");
@@ -177,7 +179,7 @@ export class AppService {
       // // 4.0. Extract address from PR description
       // // 4. Distribute reward
       // await this.distributeReward("address")
-      return { "success": true };
+      return result;
     } catch (err) {
       console.log("Error occurred")
     }
@@ -254,20 +256,22 @@ export class AppService {
       } = agentResponse as any;
       console.log(`[DEBUG] Parsed response:`, response);
 
+
+      console.log(`[DEBUG] Rewarding contributor...`);
+      const txHash = await this.rewardContributor(address ?? this.ownerAccount, String(response.suggestedReward));
+      console.log(`[DEBUG] Reward distributed successfully to ${address ?? this.ownerAccount}, with txHash: ${txHash.txHash}`);
+
+
       console.log(`[DEBUG] Adding comment to PR...`);
-      await this.addCommentToPR(owner, repo, prNumber, response.comment);
+      await this.addCommentToPR(owner, repo, prNumber, ` ${response.comment} <br><hr> Check transaction here: https://testnet.monvision.io/tx/${txHash.txHash} <br> <b>Reward Granted:</b> ${response.suggestedReward} ${this.tokenSymbol} <i>(${this.tokenName})</i> `);
       console.log(`[DEBUG] Comment added successfully.`);
 
       console.log(`[DEBUG] Adding 'Rewarded' label to PR...`);
       await this.addRewardedLabelToPR(owner, repo, prNumber);
       console.log(`[DEBUG] Label added successfully.`);
 
-      console.log(`[DEBUG] Rewarding contributor...`);
-      await this.rewardContributor(address ?? this.ownerAccount, String(response.suggestedReward));
-      console.log(`[DEBUG] Reward distributed successfully to ${address ?? this.ownerAccount}.`);
-
       console.log(`[DEBUG][COMPLETE] Workflow finished successfully for ${owner}/${repo}#${prNumber}`);
-      return "success";
+      return { pr: prDetails[0].url, ...txHash };
     } catch (err: any) {
       console.error(`[ERROR][doAllAIAndBlockchainStuff]`, err);
       return `Error occurred: ${err.message}`;
