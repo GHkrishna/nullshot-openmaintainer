@@ -20,6 +20,7 @@ export class AppService {
   private readonly ownerAccount = process.env.OWNER_ACCOUNT_ADDRESS!;
   private readonly tokenName = process.env.TOKEN_NAME_MONAD!;
   private readonly tokenSymbol = process.env.TOKEN_SYMBOL_MONAD!;
+  private readonly explorerUrl = process.env.MONAD_TESTNET_PRE_TX_URL!;
   private client: AgentClient;
   private onChainInteraction: OnChainTransaction;
 
@@ -261,9 +262,10 @@ export class AppService {
       const txHash = await this.rewardContributor(address ?? this.ownerAccount, String(response.suggestedReward));
       console.log(`[DEBUG] Reward distributed successfully to ${address ?? this.ownerAccount}, with txHash: ${txHash.txHash}`);
 
+      const explorerUrl =  this.explorerUrl+txHash.txHash
 
       console.log(`[DEBUG] Adding comment to PR...`);
-      await this.addCommentToPR(owner, repo, prNumber, ` ${response.comment} <br><hr> Check transaction here: https://testnet.monvision.io/tx/${txHash.txHash} <br> <b>Reward Granted:</b> ${response.suggestedReward} ${this.tokenSymbol} <i>(${this.tokenName})</i> `);
+      await this.addCommentToPR(owner, repo, prNumber, ` ${response.comment} <br><hr> Check transaction here: ${explorerUrl} <br> <b>Reward Granted:</b> ${response.suggestedReward} ${this.tokenSymbol} <i>(${this.tokenName})</i> `);
       console.log(`[DEBUG] Comment added successfully.`);
 
       console.log(`[DEBUG] Adding 'Rewarded' label to PR...`);
@@ -271,7 +273,7 @@ export class AppService {
       console.log(`[DEBUG] Label added successfully.`);
 
       console.log(`[DEBUG][COMPLETE] Workflow finished successfully for ${owner}/${repo}#${prNumber}`);
-      return { pr: prDetails[0].url, ...txHash };
+      return { pr: prDetails[0].url, explorerUrl, ...txHash };
     } catch (err: any) {
       console.error(`[ERROR][doAllAIAndBlockchainStuff]`, err);
       return `Error occurred: ${err.message}`;
