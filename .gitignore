@@ -1,6 +1,7 @@
 node_modules
 .env
-
+/agent0
+/examples
 
 # compiled output
 /dist
