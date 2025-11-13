@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ChatMessage } from './utils/interface';
 
 @ApiTags('test')
 @Controller('open-maintainer')
@@ -17,8 +18,12 @@ export class AppController {
 
   @Get('/prs')
   @ApiOperation({ summary: 'Get PRs' })
-  getPRs(): object {
-    return this.appService.getPullRequests(this.owner, this.repo);
+  @ApiQuery({
+    name: 'pr',
+    required: false
+  })
+  getPRs(@Query('pr') pr?: number): object {
+    return this.appService.getPullRequests(this.owner, this.repo, pr);
   }
 
   @Get('/pr-diff')
@@ -72,5 +77,25 @@ export class AppController {
   })
   rewardContributor(@Query('address') address: string, @Query('amount') amount: string): object {
     return this.appService.rewardContributor(address, amount);
+  }
+
+
+
+  @Post('/chat')
+  @ApiOperation({ summary: 'Send a chat message to the agent' })
+  @ApiQuery({
+    name: 'message',
+    required: true,
+    description: 'Message content to send to the AI agent',
+  })
+  async chat(@Query('message') message: string): Promise<object> {
+    const messages: ChatMessage[] = [
+      {
+        role: 'user',
+        content: message,
+      },
+    ];
+
+    return this.appService.sendMessageToAgent(messages);
   }
 }

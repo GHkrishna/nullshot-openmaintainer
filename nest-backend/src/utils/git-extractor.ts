@@ -88,3 +88,9 @@ export function extractPR(pr: any): SimplifiedPR {
 export function extractPRs(prs: any[]): SimplifiedPR[] {
   return prs.map(extractPR);
 }
+
+export function extractAddressFromBody(body: string): string | null {
+  // Regex for Ethereum address (0x followed by 40 hex chars)
+  const match = body.match(/0x[a-fA-F0-9]{40}/);
+  return match ? match[0] : null;
+}
