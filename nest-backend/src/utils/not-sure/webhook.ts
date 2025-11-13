@@ -4,7 +4,7 @@ import express from "express";
 import { Webhooks } from "@octokit/webhooks";
 import { Octokit } from "@octokit/rest";
 import { minimalExtractor } from "./git-extractor";
-import { buildPrompt } from "./promptBuilder";
+import { buildPrompt } from "../promptBuilder";
 
 const app = express();
 const port = process.env.PORT || 5000;
