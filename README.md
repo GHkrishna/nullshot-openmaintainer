@@ -30,7 +30,7 @@ Traditional open source relies on human maintainers — a scarce and overburdene
 | Layer | Role | Tech used |
 |-------|------|------|
 | **AI Agent** | Reviews PRs(future scope), analyzes contribution quality, and suggests bounty | NullShot TypeScript Agent Framework |
-| **Web3 Layer** | Stores and distributes bounties | Thirdweb SDK + Solidity (Polygon testnet) |
+| **Web3 Layer** | Stores and distributes bounties | Thirdweb API + Solidity (Monad testnet) |
 | **Bridge** | Links GitHub events ↔ AI logic ↔ blockchain calls | Node.js scripts |
 | **MCP** | Enables discoverable and composable agent actions | Edenlayer / NullShot MCP API |
 
@@ -73,11 +73,11 @@ Suggested Bounty → Thirdweb Contract → On-chain Reward
 | Category       | Technology                          |
 | -------------- | ----------------------------------- |
 | AI Agent       | NullShot TypeScript Agent Framework |
-| AI Model       | LLM (OpenAI / Local Ollama)         |
-| Smart Contract | Solidity + Thirdweb SDK             |
-| Backend        | Node.js                             |
-| Blockchain     | Polygon / Sepolia testnetc / Scroll         |
-| Integration    | GitHub REST API + Ethers.js         |
+| AI Model       | LLM (Anthropic)         |
+| Smart Contract | Solidity + Remix + Thirdweb             |
+| Backend        | Nestjs                             |
+| Blockchain     | Monad testnetc         |
+| Integration    | GitHub REST API + Thirdweb API         |
 
 
 # Setup Instructions
