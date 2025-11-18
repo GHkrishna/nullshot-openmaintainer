@@ -4,6 +4,7 @@
 
 > Exploring the Agentic Web — powered by **NullShot**, **Edenlayer**, and **Thirdweb**
 
+Frontend repo: https://github.com/GHkrishna/v0-ai-maintainer-ui
 ---
 
 ## Overview
