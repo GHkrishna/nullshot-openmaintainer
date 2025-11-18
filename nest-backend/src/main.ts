@@ -13,6 +13,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document); // 'api' is the path where Swagger UI will be available
 
+  app.enableCors({
+    origin: '*',     // or ['http://localhost:5173']
+    methods: 'GET,POST,PUT,DELETE,PATCH',
+    allowedHeaders: '*',
+    credentials: false,
+  });
+
+
   await app.listen(3000); // Or your desired port
 }
 bootstrap();

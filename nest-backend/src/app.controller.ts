@@ -26,6 +26,14 @@ export class AppController {
     return this.appService.getPullRequests(this.owner, this.repo, pr);
   }
 
+  // getPullRequestsComments
+
+  @Get('/pr-comments')
+  @ApiOperation({ summary: 'Get PR' })
+  getPullRequestsComments(@Query('pr') pr: number): object {
+    return this.appService.getPullRequests(this.owner, this.repo, pr);
+  }
+
   @Get('/pr-diff')
   @ApiOperation({ summary: 'Get PR diff' })
   getPRDiff(@Query('prNumber') prNumber: number): object {

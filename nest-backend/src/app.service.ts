@@ -125,6 +125,23 @@ export class AppService {
     return prs;
   }
 
+  // Fetch PR list for a repo
+  async getPullRequestsComments(owner: string, repo: string, pr: number) {
+    console.log("[DEBUG] Fetching PRs for:", owner, repo);
+    const url = `/repos/${owner}/${repo}/issues/${pr}/comments?sort=created&direction=desc`
+    let response = await this.getForGithub(url);
+
+    if (response.length == 0)
+      return []
+
+    // if (!Array.isArray(response))
+    //   response = new Array(response)
+    // const prs = extractPRs(response);
+    // console.log("[DEBUG] Extracted PRs:", prs);
+    // return prs;
+    return response;
+  }
+
   // Fetch PR diff/files
   async getPullRequestFiles(owner: string, repo: string, prNumber: number): Promise<any[]> {
     console.log("[DEBUG] Fetching PR files for:", owner, repo, prNumber);
