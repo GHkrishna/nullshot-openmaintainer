@@ -5,7 +5,9 @@
 > Exploring the Agentic Web — powered by **NullShot**, **Edenlayer**, and **Thirdweb**
 
 Frontend repo: https://github.com/GHkrishna/nullshot-open-maintainer-ui
+
 Demo video: https://youtu.be/gH0pqsYY-2g
+
 Brainstorm: https://nullshot.ai/brainstorm/9c32b729-05b9-4b5e-a822-49a562a91c96
 ---
 
