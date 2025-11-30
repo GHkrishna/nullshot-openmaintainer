@@ -11,6 +11,8 @@ Demo video: https://youtu.be/gH0pqsYY-2g
 
 Brainstorm: https://nullshot.ai/brainstorm/9c32b729-05b9-4b5e-a822-49a562a91c96
 
+Deployed contract: https://monad-testnet.socialscan.io/address/0xe35928e33d27325699d31513bedb818fc73cc795
+
 ---
 
 ## Overview
@@ -89,32 +91,46 @@ Suggested Bounty → Thirdweb Contract → On-chain Reward
 
 # Setup Instructions
 
-## Pre-req
+## Backend
 ```bash
 git clone https://github.com/GHkrishna/nullshot-openmaintainer
-cd openmaintainer
+cd nest-backend
 cp .env.example .env
 npm install
+npm run dev
 ```
 
-## Update .env with:
-```bash
-GITHUB_TOKEN=<your_token>
-OPENAI_API_KEY=<your_key>
-THIRDWEB_PRIVATE_KEY=<your_wallet_key>
-RPC_URL=<rpc_url>
-```
+For the `.env` values refer the instructions specified in `.env.example` 
 
 ## Run AI maintainer:
-TBH, not sure about this. Why would we need this file if the reviews are automated? Maybe we can have a trigger here. Dunno yet
+
 ```bash
-node scripts/review_pr.js
+cd ../agent
+```
+Add the following in `.dev.vars` and `.env`
+```
+AI_PROVIDER_API_KEY= your key
+MODEL_ID= your anthropic model
+AI_PROVIDER=anthropic
 ```
 
-## Run bounty release
+Run the agent
 ```bash
-node scripts/distribute_bounty.js
+npm install
+npm run dev
 ```
+
+## Frontend
+```
+git clone https://github.com/GHkrishna/v0-ai-maintainer-ui.git
+cp .env.example .env
+npm run dev
+```
+
+## Contract
+For now, you could simply deploy your own contract specified in the `./contracts` folder
+1. Get the address created by you on `/on-chain/owner-account`
+2. Mint some token as the `contract` owner and send them to the `created account`
 
 # Hackathon Relevance
 - NullShot Framework: used for building the AI agent
