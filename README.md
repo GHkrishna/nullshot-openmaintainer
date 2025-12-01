@@ -91,6 +91,14 @@ Suggested Bounty → Thirdweb Contract → On-chain Reward
 
 # Setup Instructions
 
+## Pre-requisite
+- Github account and the access token with appropriate read write access to the repo
+- Anthropic API keys
+- Thirdweb API keys
+- A deployed contrat on Monad testnet (with ERC20, tokens loaded in the generated address - see `Contract` section below)
+- Github repo with appropriate tags, as specified in the `Bounty.md` file
+- And a smile on ur face, coz this is a nobel cause that we would be using the solution for. (OSS is awesome 😉 )
+
 ## Backend
 ```bash
 git clone https://github.com/GHkrishna/nullshot-openmaintainer
